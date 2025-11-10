@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport&Art | Совместные тренировки для родителей и детей</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --light: #f8f9fa;
+            --dark: #2d3748;
+            --success: #48bb78;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="2" fill="white" opacity="0.1"/><circle cx="600" cy="300" r="1" fill="white" opacity="0.1"/><circle cx="800" cy="150" r="1.5" fill="white" opacity="0.1"/></svg>');
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(240, 147, 251, 0.4);
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            margin: 10px;
+        }
+
+        .telegram-btn {
+            background: #0088cc;
+            margin: 10px;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 60px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        /* Concept */
+        .concept {
+            background: white;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .concept-card {
+            background: var(--light);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .concept-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .concept-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .training-details {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .training-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .training-details li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .training-details li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* Pricing */
+        .pricing {
+            background: white;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .pricing-card {
+            background: var(--light);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card.popular {
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(240, 147, 251, 0.2);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .price {
+            font-size: 2.5em;
+            color: var(--primary);
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .price-small {
+            font-size: 0.9em;
+            color: #666;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .savings {
+            background: var(--success);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        /* Benefits */
+        .benefits {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .benefit-item h4 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* CTA */
+        .cta {
+            background: white;
+            text-align: center;
+        }
+
+        .cta-badge {
+            background: var(--success);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 40px;
+            display: inline-block;
+        }
+
+        .messenger-instruction {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px auto;
+            max-width: 600px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .instruction-step {
+            margin: 20px 0;
+            font-size: 1.1em;
+        }
+
+        .keyword {
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .contact-info {
+            margin: 30px 0;
+        }
+
+        .phone-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 20px 0;
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .section-title {
+                font-size: 2.2em;
+            }
+            
+            .phone-number {
+                font-size: 1.5em;
+            }
+            
+            .pricing-card.popular {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <h1>Sport&Art</h1>
+            <p class="hero-subtitle">Совместные тренировки для родителей и детей</p>
+            <p style="font-size: 1.2em; margin-bottom: 40px; opacity: 0.9;">
+                Уникальный формат, где вы и ваш ребенок тренируетесь параллельно в одном месте
+            </p>
+            <a href="#pricing" class="btn">Узнать цены</a>
+        </div>
+    </header>
+
+    <!-- Concept Section -->
+    <section class="concept">
+        <div class="container">
+            <h2 class="section-title">Наш уникальный формат</h2>
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="concept-icon">💪</div>
+                    <h3>ВЗРОСЛЫЙ</h3>
+                    <p>Функциональная тренировка на все тело</p>
+                    <div class="training-details">
+                        <ul>
+                            <li>Развитие гибкости и силы</li>
+                            <li>Улучшение координации</li>
+                            <li>Освоение базовых акробатических элементов</li>
+                            <li>Стойка на руках у стены и свободная</li>
+                            <li>Различные балансы и равновесия</li>
+                            <li>Мостик и прогибы</li>
+                            <li>Работа на ковриках</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-icon">🌟</div>
+                    <h3>РЕБЕНОК 4+</h3>
+                    <p>Гимнастика и общее развитие</p>
+                    <div class="training-details">
+                        <ul>
+                            <li>Развитие моторики и координации</li>
+                            <li>Укрепление осанки</li>
+                            <li>Базовые гимнастические элементы</li>
+                            <li>Игровой формат занятий</li>
+                            <li>Работа в группе сверстников</li>
+                            <li>Профессиональные педагоги</li>
+                            <li>Безопасная среда</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-icon">⚡</div>
+                    <h3>ОДНОВРЕМЕННО</h3>
+                    <p>Вы занимаетесь параллельно в разных залах, в одно время</p>
+                    <div class="training-details">
+                        <ul>
+                            <li>Одно время - два занятия</li>
+                            <li>Разные залы - один адрес</li>
+                            <li>Ребенок всегда под присмотром</li>
+                            <li>Вы можете видеть процесс</li>
+                            <li>Общее расписание</li>
+                            <li>Удобное время для семьи</li>
+                            <li>Не нужно ждать друг друга</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Стоимость занятий</h2>
+            
+            <div class="pricing-grid">
+                <!-- Разовые занятия -->
+                <div class="pricing-card">
+                    <h3>Разовое занятие</h3>
+                    <div class="price">2.800₽<span class="price-small">ПАРАЛЛЕЛЬ (родитель + ребенок)</span></div>
+                    <div class="price">2.000₽<span class="price-small">СОЛО (один занимающийся)</span></div>
+                    <ul style="text-align: left; margin: 20px 0;">
+                        <li>Пробное занятие</li>
+                        <li>Без обязательств</li>
+                        <li>Оплата на месте</li>
+                    </ul>
+                </div>
+
+                <!-- Абонементы -->
+                <div class="pricing-card popular">
+                    <h3>Абонементы</h3>
+                    <div class="price">10.000₽<span class="price-small">ПАРАЛЛЕЛЬ - 4 занятия</span></div>
+                    <div class="savings">Экономия 1.200₽</div>
+                    <div class="price">7.200₽<span class="price-small">СОЛО - 4 занятия</span></div>
+                    <div class="savings">Экономия 800₽</div>
+                    <ul style="text-align: left; margin: 20px 0;">
+                        <li>Закрепленное время</li>
+                        <li>Приоритетная запись</li>
+                        <li>Регулярные тренировки</li>
+                    </ul>
+                </div>
+
+                <!-- Индивидуальные -->
+                <div class="pricing-card">
+                    <h3>Индивидуальные</h3>
+                    <div class="price">3.499₽<span class="price-small">за занятие</span></div>
+                    <ul style="text-align: left; margin: 20px 0;">
+                        <li>Персональный тренер</li>
+                        <li>Индивидуальная программа</li>
+                        <li>Гибкое расписание</li>
+                        <li>Максимум внимания</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Выгоды для вас</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <h4>⏰ Экономия времени</h4>
+                    <p>Все в один заход - не нужно развозить по разным секциям и ждать</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>👁️ Спокойствие</h4>
+                    <p>Ребенок всегда под присмотром профессиональных тренеров в том же здании</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>💫 Личное время</h4>
+                    <p>Наконец-то время для себя, занимаясь спортом, пока ребенок развивается</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>❤️ Общее развитие</h4>
+                    <p>Создавайте семейные традиции здорового образа жизни</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-badge">
+                🎁 АКЦИЯ! Первая пробная тренировка для дуэта — БЕСПЛАТНО!
+            </div>
+            <h2 class="section-title">Как записаться?</h2>
+            
+            <div class="messenger-instruction">
+                <h3 style="text-align: center; margin-bottom: 30px; color: var(--primary);">Простая запись через мессенджер</h3>
+                
+                <div class="instruction-step">
+                    <strong>1. Напишите нам в WhatsApp или Telegram</strong>
+                </div>
+                
+                <div class="instruction-step">
+                    <strong>2. Укажите ключевое слово:</strong><br>
+                    Напишите <span class="keyword">"ПАРАЛЛЕЛЬ"</span> - для парной тренировки (родитель + ребенок)<br>
+                    Напишите <span class="keyword">"СОЛО"</span> - для одного из занимающихся
+                </div>
+                
+                <div class="instruction-step">
+                    <strong>3. Мы свяжемся с вами в течение 15 минут</strong><br>
+                    Уточним детали и запишем на удобное время
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="https://wa.me/79991234567?text=ПАРАЛЛЕЛЬ%20-%20хочу%20записаться%20на%20пробную%20тренировку" class="btn whatsapp-btn" target="_blank">
+                    📱 Написать в WhatsApp
+                </a>
+                <a href="https://t.me/your_username?text=ПАРАЛЛЕЛЬ%20-%20хочу%20записаться%20на%20пробную%20тренировку" class="btn telegram-btn" target="_blank">
+                    ✈️ Написать в Telegram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <h3 style="margin-bottom: 20px;">Sport&Art</h3>
+            <p>Совместные тренировки для родителей и детей</p>
+            
+            <div class="contact-info">
+                <p style="margin: 20px 0; font-size: 1.2em;">📞 Звоните или пишите для записи:</p>
+                <div class="phone-number">+7 (999) 123-45-67</div>
+                <p style="margin-top: 20px; opacity: 0.8;">
+                    Напишите ключевое слово <strong>"ПАРАЛЛЕЛЬ"</strong> или <strong>"СОЛО"</strong> в любом мессенджере
+                </p>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <a href="https://wa.me/79991234567?text=ПАРАЛЛЕЛЬ" class="btn whatsapp-btn" target="_blank" style="margin: 5px;">
+                    WhatsApp
+                </a>
+                <a href="https://t.me/your_username?text=ПАРАЛЛЕЛЬ" class="btn telegram-btn" target="_blank" style="margin: 5px;">
+                    Telegram
+                </a>
+            </div>
+            
+            <p style="margin-top: 30px; opacity: 0.8;">© 2024 Sport&Art. Все права защищены</p>
+        </div>
+    </footer>
+
+    <script>
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Анимация при скролле
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Наблюдаем за карточками
+        document.querySelectorAll('.concept-card, .pricing-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Замена телефона и username в ссылках
+        function updateContactLinks() {
+            const phone = '79502515076'; // Замените на ваш номер
+            const telegram = '@milistia13'; // Замените на ваш Telegram
+            
+            document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+                link.href = link.href.replace('79502515076', phone);
+            });
+            
+            document.querySelectorAll('a[href*="t.me"]').forEach(link => {
+                link.href = link.href.replace('your_username', telegram);
+            });
+            
+            document.querySelector('.phone-number').textContent = formatPhone(phone);
+        }
+
+        function formatPhone(phone) {
+            return `+7 (${phone.substring(1,4)}) ${phone.substring(4,7)}-${phone.substring(7,9)}-${phone.substring(9,11)}`;
+        }
+
+        // Обновляем контакты при загрузке
+        document.addEventListener('DOMContentLoaded', updateContactLinks);
+    </script>
+</body>
+</html>
